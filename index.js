@@ -41,7 +41,7 @@ app.get("/:category/:id", async (req, res) => {
         );
 
        let result;
-        
+
         if (category == "people") {
             result = `
             <html>
@@ -61,13 +61,43 @@ app.get("/:category/:id", async (req, res) => {
             result = `
             <html>
                 <body>
-                    <h1> Name of character: ${data.title} </h1>
+                    <h1> Name: ${data.title} </h1>
                     <p> Episode: ${data.episode_id} </p>
                     <p> Opening_crawl: ${data.opening_crawl} </p>
                     <p> Characters: ${data.characters} </p>
                     <p> Planets: ${data.planets} </p>
                     </> Starships: ${data.starships} </p>
                     <p> Species: ${data.species} </p>p>
+                </body>
+            </html>
+            `;
+        } else if (category == "planets") {
+            result = `
+            <html>
+                <body>
+                    <h1> Name: ${data.name} </h1>
+                    <p> Residents: ${data.residents} </p>
+                    <p> Films: ${data.films} </p>
+                </body>
+            </html>
+            `;
+        } else if (category == "starships") {
+            result = `
+            <html>
+                <body>
+                    <h1> Name: ${data.name} </h1>
+                    <p> Pilots: ${data.pilots} </p>
+                    <p> Films: ${data.films} </p>
+                </body>
+            </html>
+            `;
+        } else if (category == "vehicles") {
+            result = `
+            <html>
+                <body>
+                    <h1> Name: ${data.name} </h1>
+                    <p> Pilots: ${data.pilots} </p>
+                    <p> Films: ${data.films} </p>
                 </body>
             </html>
             `;
