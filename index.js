@@ -40,18 +40,39 @@ app.get("/:category/:id", async (req, res) => {
             })
         );
 
-        const result = `
-        <html>
-            <body>
-                <h1> Name of character: ${data.name} </h1>
-                <p> Height: ${data.height} </p>
-                <p> Mass: ${data.mass} </p>
-                <p> Homeworld: ${data.homeworld} </p>
-                <p> Films: ${data.films} </p>
-            </body>
-        </html>
-        `;
-        res.send(result);
+       let result;
+        
+        if (category == "people") {
+            result = `
+            <html>
+                <body>
+                    <h1> Name of character: ${data.name} </h1>
+                    <p> Height: ${data.height} </p>
+                    <p> Mass: ${data.mass} </p>
+                    <p> Homeworld: ${data.homeworld} </p>
+                    <p> Films: ${data.films} </p>
+                    <p> Species: ${data.species} </p>
+                    </> Vehicles: ${data.vehicles} </p>
+                    </> Starships: ${data.starships} </p>
+                </body>
+            </html>
+            `;
+        } else if (category == "films") {
+            result = `
+            <html>
+                <body>
+                    <h1> Name of character: ${data.title} </h1>
+                    <p> Episode: ${data.episode_id} </p>
+                    <p> Opening_crawl: ${data.opening_crawl} </p>
+                    <p> Characters: ${data.characters} </p>
+                    <p> Planets: ${data.planets} </p>
+                    </> Starships: ${data.starships} </p>
+                    <p> Species: ${data.species} </p>p>
+                </body>
+            </html>
+            `;
+        }
+    res.send(result);
     } catch(error) {
         res.send("<html><body><h1>Error</h1></body></html>")
     }
