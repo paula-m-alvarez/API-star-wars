@@ -13,7 +13,7 @@ app.get("/:category/:id", async (req, res) => {
 
     try {
         let { data } = await api.get(`/${category}/${id}`);
-        console.log(data);
+        //console.log(data);
 
         await Promise.all(
             Object.entries(data).map(async (p) => {
@@ -22,7 +22,21 @@ app.get("/:category/:id", async (req, res) => {
                         `/planets/${p[1].split(`planets/`)[1]}`
                     );
                     data[p[0]] = homeworld.data.name;
-                };
+                } else if (Array.isArray(p[1])) {
+                    let name, id;
+                    for (const [i, v] of p[1].entries()) {
+                        name = p[0] == "people" ||
+                            p[0] == "characteres" ||
+                            p[0] == "pilots" ||
+                            p[0] == "residents" 
+                            ? "people"
+                            : p[0];
+                        id = v.split(`${name}/`)[1];
+                        const resultAPI = await api.get(`/${name}/${id}`);
+                        const nombre = resultAPI.data.name ? resultAPI.data.name : resultAPI.data.title
+                        p[1][i] = nombre;
+                    } 
+                }
             })
         );
 
@@ -33,6 +47,7 @@ app.get("/:category/:id", async (req, res) => {
                 <p> Height: ${data.height} </p>
                 <p> Mass: ${data.mass} </p>
                 <p> Homeworld: ${data.homeworld} </p>
+                <p> Films: ${data.films} </p>
             </body>
         </html>
         `;
